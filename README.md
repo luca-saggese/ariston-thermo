@@ -1,2 +1,2 @@
 # ariston-thermo
-api for ariston thermo
+placeholder for implementation
