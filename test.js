@@ -13,8 +13,9 @@ var form = {
 };
 
 const proxy = "http://10.213.2.98";
+const baseUrl = 'https://www.ariston-net.remotethermo.com';
 
-request.post({url: 'https://www.ariston-net.remotethermo.com/Account/Login', rejectUnauthorized: false, proxy , body: JSON.stringify(form), 
+request.post({url: baseUrl + '/Account/Login', rejectUnauthorized: false, proxy , body: JSON.stringify(form), 
 	headers}, function(err, res, body){
     if(err) console.log('login error');
 
@@ -23,7 +24,7 @@ request.post({url: 'https://www.ariston-net.remotethermo.com/Account/Login', rej
     // get cookie
 	
 	request.get({
-		url:'https://www.ariston-net.remotethermo.com',
+		url: baseUrl,
 		rejectUnauthorized: false, 
 		proxy,
 		headers
@@ -39,7 +40,7 @@ request.post({url: 'https://www.ariston-net.remotethermo.com/Account/Login', rej
 		console.log('login success', setCookie, plantRefreshUrl);
 
 		request.get({
-			url:'https://www.ariston-net.remotethermo.com' + plantRefreshUrl ,
+			url:baseUrl + plantRefreshUrl ,
 			rejectUnauthorized: false, 
 			proxy,
 			headers
@@ -47,31 +48,5 @@ request.post({url: 'https://www.ariston-net.remotethermo.com/Account/Login', rej
 			console.log(JSON.parse(body))
 		})
 	});
-	
-
-
-   
-
-    
-});
-// After I get the cookie, I put the cookie in headers and I can do something else which need auth.
-
-
-
-
-/*
-
-//https://www.ariston-net.remotethermo.com/PlantDashboard/GetPlantData/F0AD04A099?zoneNum=1&umsys=si&firstRoundTrip=false&completionToken=&twoPhaseRefresh=true
-var headers = {
-    'content-type': 'application/json',
-    'accept': 'application/json',
-    'cookie': cookie
-}
-
-request.get({url: 'http://website/somethingElse', headers: headers}, function(err, res, body){
-
-    console.log(body);
-
 });
 
-*/
